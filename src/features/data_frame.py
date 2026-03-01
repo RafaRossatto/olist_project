@@ -6,15 +6,15 @@ class DF(pd.DataFrame):
     """
     
     # Propriedade para identificar nossa classe
-    _metadata = ['nome']
+    #_metadata = ['nome']
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.nome = kwargs.get('nome', 'DataFrame sem nome')
+       # self.nome = kwargs.get('nome', 'DataFrame sem nome')
     
-    @property
-    def _constructor(self):
-        return DF
+    # @property
+    # def _constructor(self):
+    #     return DF
     
     @classmethod
     def read_csv(cls, path, **kwargs):
@@ -92,7 +92,7 @@ class DF(pd.DataFrame):
     # Seus métodos personalizados
     def summary(self):
         """Resumo estatístico personalizado"""
-        print(f"\n📊 Resumo do DataFrame: {self.nome}")
+       # print(f"\n📊 Resumo do DataFrame: {self.nome}")
         print(f"📏 Dimensões: {self.shape}")
         print(f"🔤 Colunas: {list(self.columns)}")
         print(f"\n📈 Estatísticas:")

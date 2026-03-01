@@ -7,14 +7,13 @@ def main():
     path = '../data/raw/olist_orders_dataset.csv'
     
     try:
-        loader = LoadData(path)  # <-- CORRETO!
-        df = loader.load()  # JÁ É UM DF!
-        #df.summary()
+        loader = LoadData(path)
+        df = loader.load() 
+        df.summary()
         print(df.head())
 
     except FileNotFoundError:
         print("Deu erro...")
-        # Cria dados de exemplo
     
 if __name__ == "__main__":
     main()
