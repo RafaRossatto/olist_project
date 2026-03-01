@@ -1,0 +1,48 @@
+# Ambientes virtuais
+venv/
+env/
+.venv/
+.env/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Dados (NUNCA versionar dados reais)
+*.csv
+*.xlsx
+*.xls
+*.parquet
+*.pkl
+*.pickle
+*.db
+*.sqlite
+data/
+dados/
+inputs/
+outputs/
+
+# Notebooks
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Configurações com segredos
+.env
+*.key
+*.pem
+secrets.yaml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
