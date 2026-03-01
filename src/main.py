@@ -1,15 +1,17 @@
-from data.load_data import LoadData
+from data_code.load_data import LoadData
+from features.data_frame import DF
 
 def main():
     # Exemplo 1: Uso básico
     print("=== EXEMPLO 1: Básico ===")
-    path = LoadData('../data/raw/olist_orders_dataset.csv')
+    path = '../data/raw/olist_orders_dataset.csv'
     
     try:
-        df = path.load()
-        print(f"DataFrame carregado: {df.shape}")
+        loader = LoadData(path)  # <-- CORRETO!
+        df = loader.load()  # JÁ É UM DF!
+        #df.summary()
         print(df.head())
-        
+
     except FileNotFoundError:
         print("Deu erro...")
         # Cria dados de exemplo
