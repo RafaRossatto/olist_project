@@ -1,21 +1,15 @@
 import pandas as pd
+import os
+
 
 class DF(pd.DataFrame):
     """
     Classe personalizada que herda de pandas.DataFrame
     """
     
-    # Propriedade para identificar nossa classe
-    #_metadata = ['nome']
-    
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-       # self.nome = kwargs.get('nome', 'DataFrame sem nome')
-    
-    # @property
-    # def _constructor(self):
-    #     return DF
-    
+
     @classmethod
     def read_csv(cls, path, **kwargs):
         """
@@ -50,11 +44,7 @@ class DF(pd.DataFrame):
         
         Returns:
             DF: DataFrame personalizado
-        
-        Exemplos:
-            df = DF.read_excel('dados.xlsx')
-            df = DF.read_excel('dados.xlsx', sheet_name='Vendas')
-            df = DF.read_excel('dados.xlsx', sheet_name=0, skiprows=2)
+
         """
         # 1. Lê o CSV usando pandas
         df_pandas = pd.read_excel(path, **kwargs)
@@ -74,34 +64,72 @@ class DF(pd.DataFrame):
         
         Returns:
             DF: DataFrame personalizado
-        
-        Exemplos:
-            df = DF.read_json('dados.json')
-            df = DF.read_json('dados.json', orient='records')
-            df = DF.read_json('dados.json', encoding='utf-8')
         """
         # 1. Lê o JSON usando pandas
         df_pandas = pd.read_json(path, **kwargs)
         
         # 2. Converte para DF personalizado e retorna
         return cls(df_pandas)
-
-
-
     
-    # Seus métodos personalizados
-    def summary(self):
-        """Resumo estatístico personalizado"""
-       # print(f"\n📊 Resumo do DataFrame: {self.nome}")
-        print(f"📏 Dimensões: {self.shape}")
-        print(f"🔤 Colunas: {list(self.columns)}")
-        print(f"\n📈 Estatísticas:")
-        return self.describe()
+    def _time_to_approved(self,path):
+        '''
+        This method calculates the time it take for an orden to be 
+        aproved, by calculeting the diferrence between the order_aproved_at and order purchase_timestamp columns.
+        '''
+        time_to_approved = self[['order_id', 'customer_id', 'order_purchase_timestamp', 'order_approved_at']].copy()
+        time_to_approved['order_purchase_timestamp'] = pd.to_datetime(time_to_approved['order_purchase_timestamp'])
+        time_to_approved['order_approved_at'] = pd.to_datetime(time_to_approved['order_approved_at'])
+        time_to_approved['time_to_aproved'] = time_to_approved['order_approved_at'] - time_to_approved['order_purchase_timestamp']
+        file_path = os.path.join(path, 'time_to_approved.csv')
+        time_to_approved.to_csv(file_path, index=False)
+
+    def _transit_time(self,path):
+        '''
+        This method calculetes the time it takes for an order to be delivered,
+        by calculating the difference between the order_delivered_customer_dat and order_purchase_timestamp columns.
+        '''
+        transit_time = self[['order_id', 'customer_id','order_delivered_carrier_date','order_delivered_customer_date']].copy()
+        transit_time['order_delivered_customer_date'] = pd.to_datetime(transit_time['order_delivered_customer_date'])
+        transit_time['order_delivered_carrier_date'] = pd.to_datetime(transit_time['order_delivered_carrier_date'])
+        transit_time['transit_time'] = transit_time['order_delivered_customer_date'] - transit_time['order_delivered_carrier_date']
+        
+        file_path = os.path.join(path, 'transit_time.csv')
+        transit_time.to_csv(file_path, index=False)
     
-    def drop_na_cols(self, threshold=0.5):
-        """
-        Remove colunas com mais de threshold% de valores nulos
-        """
-        null_pct = self.isnull().sum() / len(self)
-        cols_to_drop = null_pct[null_pct > threshold].index
-        return self.drop(columns=cols_to_drop)
+    def _comparation_time(self,path):
+        '''
+        This method compares the time it take to make the delivered 
+        and the estimate delivery time, calculating the difference between the order_delivered_customer_dat 
+        and order_estimated_delivery_dat columns.
+        '''
+        comparation_time = self[['order_id', 'customer_id','order_estimated_delivery_date','order_delivered_customer_date']].copy()
+        comparation_time['order_delivered_customer_date'] = pd.to_datetime(comparation_time['order_delivered_customer_date'])
+        comparation_time['order_estimated_date'] = pd.to_datetime(comparation_time['order_estimated_delivery_date'])
+        comparation_time['comparation_time'] = comparation_time['order_estimated_date'] - comparation_time['order_delivered_customer_date']
+        
+        file_path = os.path.join(path, 'comparation_time.csv')
+        comparation_time.to_csv(file_path, index=False)
+    
+    def _total_time(self,path):
+        '''
+        This method calculates the total time of an order, 
+        by calculating the difference between the order_delivered_customer_dat 
+        and order_purchase_timestamp columns.
+        '''
+        total_time = self[['order_id', 'customer_id','order_purchase_timestamp','order_delivered_customer_date']].copy()
+        total_time['order_delivered_customer_date'] = pd.to_datetime(total_time['order_delivered_customer_date'])
+        total_time['order_purchase_timestamp'] = pd.to_datetime(total_time['order_purchase_timestamp'])
+        total_time['total_time'] = total_time['order_delivered_customer_date'] - total_time['order_purchase_timestamp']
+        
+        file_path = os.path.join(path, 'total_time.csv')
+        total_time.to_csv(file_path, index=False)
+        
+ 
+    def save_data(self,path):
+        '''
+        This method saves the processed data, using the other methods.
+        '''
+        self._time_to_approved(path)
+        self._transit_time(path)
+        self._comparation_time(path)
+        self._total_time(path)

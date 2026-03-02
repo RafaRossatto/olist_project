@@ -3,14 +3,14 @@ from features.data_frame import DF
 
 def main():
     # Exemplo 1: Uso básico
-    print("=== EXEMPLO 1: Básico ===")
-    path = '../data/raw/olist_orders_dataset.csv'
+    path_in = '../data/raw/olist_orders_dataset.csv'
+    path_out = "../data/data_process"
     
     try:
-        loader = LoadData(path)
+        loader = LoadData(path_in)
         df = loader.load() 
-        df.summary()
-        print(df.head())
+        df.save_data(path_out)
+        #print(df.head())
 
     except FileNotFoundError:
         print("Deu erro...")
