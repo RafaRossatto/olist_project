@@ -15,7 +15,8 @@ def main():
     #path_in = '../data/raw/olist_orders_dataset.csv'
     #path_out = "../data/data_process"
 
-        # Valida se o tipo é válido
+        # Valida se o tipo é válidols
+        
     tipos_validos = ['time_to_approved', 'transit_time', 'comparation_time', 'total_time', 'all']
     if args.metric not in tipos_validos:
         print(f" Erro: Tipo '{args.metric}' inválido!")
