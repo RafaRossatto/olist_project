@@ -17,10 +17,10 @@ def main():
 
         # Valida se o tipo é válidols
         
-    tipos_validos = ['time_to_approved', 'transit_time', 'comparation_time', 'total_time', 'all']
-    if args.metric not in tipos_validos:
-        print(f" Erro: Tipo '{args.metric}' inválido!")
-        print(f" Tipos válidos: {', '.join(tipos_validos)}")
+    metrics = ['time_to_approved', 'transit_time', 'comparation_time', 'total_time', 'all']
+    if args.metric not in metrics:
+        print(f" Error: Metric '{args.metric}' invalid!")
+        print(f" Valid Metric: {', '.join(metrics)}")
         return
     
     try:
@@ -29,7 +29,7 @@ def main():
         df.save_data(args.output,args.metric)
 
     except FileNotFoundError:
-        print("Deu erro...")
+        print("File not found, please verify the file path.")
     
 if __name__ == "__main__":
     main()

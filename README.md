@@ -1,4 +1,4 @@
-# ETL de Métricas de Entregas - Brazilian E-Commerce Public Dataset
+# ETL of Metrics of Brazilian E-Commerce Public Dataset
 
 The ideia of this project is implement a ETL using this Dataset:
 https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce/data?select=olist_orders_dataset.csv
@@ -9,11 +9,11 @@ The ideia is to use the OO paradigma, to get a raw data, and results of csv file
 This metric is the time to a buy to be appoved, this could have bring insight to try understand if there some boodleneck in this operation.
 
 ### comparation_time.csv:
-This metric is the show the difference between the estimative delivered data and the real data of the delivered 
+This metric is the show the difference between the estimative delivered data and the real data of the delivered, the intent of this metric, is to bring a more realistic delivered data to the custumer.
 
 ### transit_time.csv:
 
-The transit time, is the time that a product is on transit.
+The transit time, is the time that a product is on transit. 
 
 ### total_time.csv:
 
@@ -21,7 +21,7 @@ This is the metric that cout all the time, from the time to the order is made un
 
 ## How to used:
 
-To use this code is necessary to have the same enviroment, for this reason there is a requirements.txt to solve this problem.
+To use this code is necessary to have the same enviroment, for this reason there is a requirements.txt file to any user have the same enviroment.
 
 This code use the argparse, for this reason, to run the code is necessary put more information in to run. Example:
 
