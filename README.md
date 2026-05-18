@@ -8,6 +8,11 @@
 E-commerce platforms generate large volumes of operational data, but raw data alone doesn't provide actionable insights. This project solves the problem of transforming raw order data from the Brazilian E-Commerce Public Dataset into meaningful business metrics. Specifically, it calculates key performance indicators (KPIs) such as approval time, delivery accuracy, transit time, and total delivery time — helping identify bottlenecks, improve delivery estimates, and enhance customer experience.
 
 > **Dataset source:** [Brazilian E-Commerce Dataset on Kaggle](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce/data?select=olist_orders_dataset.csv)
+>
+> <div align="center">
+  <img src="images/data_base_schema.png" alt="Database Schema">
+  <p><em>Olist Database Schema - Relationship between tables</em></p>
+</div>
 
 ## 🛠️ Technologies Used
 
@@ -53,6 +58,11 @@ python3 main.py <input_file> <output_path> <metric>
 - `all` - Generates all of the above metrics
 
 ## ✨ Main Functionalities
+
+<div align="center">
+  <img src="images/Olist_ETL.png" alt="ETL Pipeline Flowchart" width="1800">
+  <p><em>ETL process workflow - from raw data to business metrics</em></p>
+</div>
 
 - Reads raw order data from a CSV file
 - Calculates four delivery-related metrics using OOP
