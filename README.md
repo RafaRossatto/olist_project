@@ -1,45 +1,71 @@
-# ETL of Metrics of Brazilian E-Commerce Public Dataset
+# ETL of Metrics from the Brazilian E-Commerce Public Dataset
 
-The ideia of this project is implement a ETL using this Dataset:
-https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce/data?select=olist_orders_dataset.csv
+![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-The ideia is to use the OO paradigma, to get a raw data, and results of csv file's, that represent metric of the dataset:
+## 📌 Problem the Project Solves
 
-### time_to_approved.cvs:
-This metric is the time to a buy to be appoved, this could have bring insight to try understand if there some boodleneck in this operation.
+E-commerce platforms generate large volumes of operational data, but raw data alone doesn't provide actionable insights. This project solves the problem of transforming raw order data from the Brazilian E-Commerce Public Dataset into meaningful business metrics. Specifically, it calculates key performance indicators (KPIs) such as approval time, delivery accuracy, transit time, and total delivery time — helping identify bottlenecks, improve delivery estimates, and enhance customer experience.
 
-### comparation_time.csv:
-This metric is the show the difference between the estimative delivered data and the real data of the delivered, the intent of this metric, is to bring a more realistic delivered data to the custumer.
+> **Dataset source:** [Brazilian E-Commerce Dataset on Kaggle](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce/data?select=olist_orders_dataset.csv)
 
-### transit_time.csv:
+## 🛠️ Technologies Used
 
-The transit time, is the time that a product is on transit. 
+| Technology | Purpose |
+|------------|---------|
+| **Python 3** | Core programming language |
+| **Pandas** | Data manipulation and analysis |
+| **Argparse** | Command-line argument parsing |
+| **CSV** | Input/output data format |
+| **OOP** | Modular and reusable code structure |
 
-### total_time.csv:
+## 🚀 How to Run or Access the Project
 
-This is the metric that cout all the time, from the time to the order is made until the product is delivered in the costumer home. 
+### Prerequisites
 
-## How to used:
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/your-repo-name.git
+cd your-repo-name
 
-To use this code is necessary to have the same enviroment, for this reason there is a requirements.txt file to any user have the same enviroment.
+# Create virtual environment (optional but recommended)
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-This code use the argparse, for this reason, to run the code is necessary put more information in to run. Example:
+# Install dependencies
+pip install -r requirements.txt
 
+```
+
+## Execution
+
+Run the command:
+
+```bash
 python3 main.py <input_file> <output_path> <metric>
+```
+### Metric Options
 
-the value of metric can be a especific metric or all of then:
-metric= 
+- `time_to_approved` - Time taken for a purchase to be approved
+- `transit_time` - Time the product spends in transit
+- `comparation_time` - Difference between estimated and actual delivery date
+- `total_time` - Total time from order creation to customer delivery
+- `all` - Generates all of the above metrics
 
-[
+## ✨ Main Functionalities
 
-'time_to_approved'
+- Reads raw order data from a CSV file
+- Calculates four delivery-related metrics using OOP
+- Saves each metric as a separate CSV file in the specified output directory
+- Supports selective metric calculation or batch processing (`all`)
+- Uses `argparse` for flexible command-line usage
 
-'transit_time',
+## 📈 Next Steps / Improvements
 
-'comparation_time',
-
-'total_time',
-
-'all'
-
-]
+- Add unit tests for each metric calculation
+- Integrate with a visualization dashboard (Streamlit or Power BI)
+- Support for database output (PostgreSQL, MySQL) instead of only CSV
+- Optimize performance for very large datasets (chunk processing)
+- Package the project as a pip-installable module
+- Add logging and error handling for missing or malformed data
+- Dockerize the application for one-click reproducibility
